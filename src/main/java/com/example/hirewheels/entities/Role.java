@@ -2,6 +2,8 @@ package com.example.hirewheels.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name="role")
 public class Role {
 
@@ -13,8 +15,16 @@ public class Role {
     @Column(name="roleName", nullable = false, length = 50, unique = true)
     private String role_name;
 
-    @OneToOne(mappedBy = "role_id")  // Reference to the Users entity
-    private Users user;
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)  // Reference to the Users entity
+    private Set<Users> usersList;
+
+    public Role() {
+    }
+
+    public Role(int roleId, String roleName) {
+        this.role_id = roleId;
+        this.role_name = roleName;
+    }
 
     public int getRole_id() {
         return role_id;
@@ -30,6 +40,14 @@ public class Role {
 
     public void setRole_name(String role_name) {
         this.role_name = role_name;
+    }
+
+    public Set<Users> getUsersList() {
+        return usersList;
+    }
+
+    public void setUsersList(Set<Users> usersList) {
+        this.usersList = usersList;
     }
 
     @Override

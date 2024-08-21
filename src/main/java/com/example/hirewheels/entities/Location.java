@@ -2,6 +2,8 @@ package com.example.hirewheels.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name="location")
 public class Location {
 
@@ -15,12 +17,29 @@ public class Location {
     @Column(length = 100, nullable = false)
     private String address;
 
-    @OneToOne
-    @JoinColumn(name = "city_id")
+    @ManyToOne
+    @JoinColumn(name = "city_id", nullable = false)
     private City city;
 
     @Column(nullable = false)
     private String pincode;
+
+    @OneToMany(mappedBy = "location" , cascade = CascadeType.ALL)
+    private Set<Booking> bookingsList;
+
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    public Location() {
+    }
+
+    public Location(int locationId, String locationName, String address, String pincode, City city) {
+        this.location_id = locationId;
+        this.location_name = locationName;
+        this.address = address;
+        this.pincode = pincode;
+        this.city = city;
+    }
 
     public int getLocation_id() {
         return location_id;
@@ -60,6 +79,22 @@ public class Location {
 
     public void setPincode(String pincode) {
         this.pincode = pincode;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
+    }
+
+    public Set<Booking> getBookingsList() {
+        return bookingsList;
+    }
+
+    public void setBookingsList(Set<Booking> bookingsList) {
+        this.bookingsList = bookingsList;
     }
 
     @Override

@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface BookingDAO extends JpaRepository<com.example.hirewheels.entities.Booking, Integer> {
-    List<Booking> findByVehicleWithBooking(Vehicle vehicle);
+    List<Booking> findByVehicle(Vehicle vehicle);
 
 }

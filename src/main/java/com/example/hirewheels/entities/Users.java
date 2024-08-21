@@ -3,6 +3,8 @@ package com.example.hirewheels.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Check;
 
+import java.util.Set;
+
 @Entity(name = "users")
 @Check(constraints = "LENGTH(password) > 5")
 public class Users {
@@ -12,10 +14,10 @@ public class Users {
     private int user_id;
 
     @Column(name="firstName", length = 50, nullable = false)
-    private String first_name;
+    private String firstName;
 
     @Column(name="lastName", length = 50)
-    private String last_name;
+    private String lastName;
 
 //    @Size(min = 6)
     @Column(name="password", length = 50, nullable = false )
@@ -25,14 +27,30 @@ public class Users {
     private String email;
 
     @Column(name="mobileNo", nullable = false, unique = true)
-    private String mobile_no;
+    private String mobileNo;
 
-    @OneToOne
-    @JoinColumn(name = "role_id")
-    private Role role_id;
+    @ManyToOne
+    @JoinColumn(name = "role_id", nullable = false)
+    private Role role;
 
     @Column(name="walletMoney", nullable = false)
     private double wallet_money = 10000.00;
+
+    @OneToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Booking> bookings;
+
+    public Users() {
+    }
+
+    public Users(String firstName, String lastName, String password, String email, String mobileNo, float walletMoney, Role role) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+        this.email = email;
+        this.mobileNo = mobileNo;
+        this.wallet_money = walletMoney;
+        this.role = role;
+    }
 
     public int getUser_id() {
         return user_id;
@@ -42,20 +60,20 @@ public class Users {
         this.user_id = user_id;
     }
 
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPassword() {
@@ -74,20 +92,12 @@ public class Users {
         this.email = email;
     }
 
-    public String getMobile_no() {
-        return mobile_no;
+    public String getMobileNo() {
+        return mobileNo;
     }
 
-    public void setMobile_no(String mobile_no) {
-        this.mobile_no = mobile_no;
-    }
-
-    public Role getRole() {
-        return role_id;
-    }
-
-    public void setRole(Role role) {
-        this.role_id = role;
+    public void setMobileNo(String mobileNo) {
+        this.mobileNo = mobileNo;
     }
 
     public double getWallet_money() {
@@ -98,17 +108,33 @@ public class Users {
         this.wallet_money = wallet_money;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
     @Override
     public String toString() {
         return "Users{" +
                 "user_id=" + user_id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", first_name='" + firstName + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", mobile_no='" + mobile_no + '\'' +
-                ", role_id=" + role_id +
-                ", wallet_money=" + wallet_money +
+                ", mobile_no='" + mobileNo + '\'' +
+                ", walletMoney=" + wallet_money +
+                ", role_id=" + role +
                 '}';
     }
 }

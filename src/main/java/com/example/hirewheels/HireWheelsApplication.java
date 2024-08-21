@@ -9,11 +9,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class HireWheelsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HireWheelsApplication.class, args);
+//		SpringApplication.run(HireWheelsApplication.class, args);
 
 //		ApplicationContext context = new AnnotationConfigApplicationContext();
 		ApplicationContext context = SpringApplication.run(HireWheelsApplication.class, args);
-		System.out.println("Running");
+		System.out.println("Application Running");
 	}
 
 }

@@ -2,6 +2,8 @@ package com.example.hirewheels.dao;
 
 import com.example.hirewheels.entities.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,5 +29,8 @@ public interface UsersDAO extends JpaRepository<com.example.hirewheels.entities.
 //    public User findByMobileNoIgnoreCase(String mobileNo);
 //    public User findByEmailIgnoreCase(String email);
 //    public User findByEmailAndPassword(String email, String password);
+//
+//    @Query("SELECT u FROM Users u WHERE LOWER(u.firstName) = LOWER(:firstName)")
+//    List<Users> findByFirstNameCustomQuery(@Param("firstName") String firstName);
 
 }

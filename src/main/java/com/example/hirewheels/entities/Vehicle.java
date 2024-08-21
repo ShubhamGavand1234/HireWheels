@@ -1,6 +1,9 @@
 package com.example.hirewheels.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity(name="vehicle")
 public class Vehicle {
@@ -13,21 +16,24 @@ public class Vehicle {
     private String vehicle_model;
 
     @Column(name="vehicleNumber", nullable = false)
-    private String vehicle_number;
+    private String vehicleNumber;
 
     @Column(name="color", nullable = false, length = 50)
     private String color;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "vehicle_subcategory_id")
+    @JsonBackReference
     private VehicleSubcategory vehicleSubcategory;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "location_id")
+    @JsonBackReference
     private Location location;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "fuel_type_id")
+    @JsonBackReference
     private FuelType fuelType;
 
     @Column(name="availabilityStatus", nullable = false)
@@ -35,6 +41,37 @@ public class Vehicle {
 
     @Column(name="vehicleImageUrl", nullable = false, length = 500)
     private String vehicle_image_url;
+
+    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Booking> bookings;
+
+    public Vehicle() {
+
+    }
+
+
+    public Vehicle(String vehicleModel, String vehicleNumber, String color, int availabilityStatus, String vehicleImageUrl, VehicleSubcategory vehicleSubcategory, Location location, FuelType fuelType) {
+        this.vehicle_model = vehicleModel;
+        this.vehicleNumber = vehicleNumber;
+        this.color = color;
+        this.availability_status = availabilityStatus;
+        this.vehicle_image_url = vehicleImageUrl;
+        this.vehicleSubcategory = vehicleSubcategory;
+        this.location = location;
+        this.fuelType = fuelType;
+    }
+
+    public Vehicle(int vehicleId, String vehicleModel, String vehicleNumber, String color, int availabilityStatus, String vehicleImageUrl, VehicleSubcategory vehicleSubcategory, Location location, FuelType fuelType) {
+        this.vehicle_id = vehicleId;
+        this.vehicle_model = vehicleModel;
+        this.vehicleNumber = vehicleNumber;
+        this.color = color;
+        this.availability_status = availabilityStatus;
+        this.vehicle_image_url = vehicleImageUrl;
+        this.vehicleSubcategory = vehicleSubcategory;
+        this.location = location;
+        this.fuelType = fuelType;
+    }
 
     public int getVehicle_id() {
         return vehicle_id;
@@ -52,12 +89,12 @@ public class Vehicle {
         this.vehicle_model = vehicle_model;
     }
 
-    public String getVehicle_number() {
-        return vehicle_number;
+    public String getVehicleNumber() {
+        return vehicleNumber;
     }
 
-    public void setVehicle_number(String vehicle_number) {
-        this.vehicle_number = vehicle_number;
+    public void setVehicleNumber(String vehicleNumber) {
+        this.vehicleNumber = vehicleNumber;
     }
 
     public String getColor() {
@@ -108,12 +145,22 @@ public class Vehicle {
         this.vehicle_image_url = vehicle_image_url;
     }
 
+    public Set<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(Set<Booking> bookings) {
+        this.bookings = bookings;
+    }
+
+
+
     @Override
     public String toString() {
         return "Vehicle{" +
                 "vehicle_id=" + vehicle_id +
                 ", vehicle_model='" + vehicle_model + '\'' +
-                ", vehicle_number='" + vehicle_number + '\'' +
+                ", vehicle_number='" + vehicleNumber + '\'' +
                 ", color='" + color + '\'' +
                 ", vehicleSubcategory=" + vehicleSubcategory +
                 ", location=" + location +

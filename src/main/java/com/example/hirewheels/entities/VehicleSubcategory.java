@@ -2,6 +2,8 @@ package com.example.hirewheels.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity(name="vehicle_subcategory")
 public class VehicleSubcategory {
 
@@ -15,9 +17,22 @@ public class VehicleSubcategory {
     @Column( nullable = false)
     private double price_per_day;
 
-    @OneToOne
-    @JoinColumn(name = "vehicle_category_id")
+    @ManyToOne
+    @JoinColumn(name = "vehicle_category_id", nullable = false)
     private VehicleCategory vehicleCategory;
+
+    @OneToMany(mappedBy = "vehicleSubcategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<Vehicle> vehicles;
+
+    public VehicleSubcategory() {
+    }
+
+    public VehicleSubcategory(int vehicleSubcategoryId, String vehicleSubcategoryName, int pricePerDay, VehicleCategory vehicleCategory) {
+        this.vehicle_subcategory_id = vehicleSubcategoryId;
+        this.vehicle_subcategory_name = vehicleSubcategoryName;
+        this.price_per_day = pricePerDay;
+        this.vehicleCategory = vehicleCategory;
+    }
 
     public int getVehicle_subcategory_id() {
         return vehicle_subcategory_id;
@@ -49,6 +64,14 @@ public class VehicleSubcategory {
 
     public void setVehicleCategory(com.example.hirewheels.entities.VehicleCategory vehicleCategory) {
         this.vehicleCategory = vehicleCategory;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
     @Override
