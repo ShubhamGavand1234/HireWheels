@@ -18,7 +18,7 @@ public class VehicleSubcategory {
     private double price_per_day;
 
     @ManyToOne
-    @JoinColumn(name = "vehicle_category_id", nullable = false)
+    @JoinColumn(name = "vehicle_category_id")
     private VehicleCategory vehicleCategory;
 
     @OneToMany(mappedBy = "vehicleSubcategory", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
