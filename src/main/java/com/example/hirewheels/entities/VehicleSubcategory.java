@@ -17,7 +17,7 @@ public class VehicleSubcategory {
 
     @OneToOne
     @JoinColumn(name = "vehicle_category_id")
-    private vehicleCategory vehicleCategory;
+    private VehicleCategory vehicleCategory;
 
     public int getVehicle_subcategory_id() {
         return vehicle_subcategory_id;
@@ -43,11 +43,11 @@ public class VehicleSubcategory {
         this.price_per_day = price_per_day;
     }
 
-    public com.example.hirewheels.entities.vehicleCategory getVehicleCategory() {
+    public com.example.hirewheels.entities.VehicleCategory getVehicleCategory() {
         return vehicleCategory;
     }
 
-    public void setVehicleCategory(com.example.hirewheels.entities.vehicleCategory vehicleCategory) {
+    public void setVehicleCategory(com.example.hirewheels.entities.VehicleCategory vehicleCategory) {
         this.vehicleCategory = vehicleCategory;
     }
 
