@@ -13,7 +13,7 @@ public class Role {
     @Column(name="roleName", nullable = false, length = 50, unique = true)
     private String role_name;
 
-    @OneToOne(mappedBy = "role")  // Reference to the Users entity
+    @OneToOne(mappedBy = "role_id")  // Reference to the Users entity
     private Users user;
 
     public int getRole_id() {

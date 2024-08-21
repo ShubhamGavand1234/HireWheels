@@ -1,8 +1,10 @@
 package com.example.hirewheels.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.Check;
 
 @Entity(name = "users")
+@Check(constraints = "LENGTH(password) > 5")
 public class Users {
 
     @Id
@@ -15,7 +17,8 @@ public class Users {
     @Column(name="lastName", length = 50)
     private String last_name;
 
-    @Column(name="password", length = 50, nullable = false)
+//    @Size(min = 6)
+    @Column(name="password", length = 50, nullable = false )
     private String password;
 
     @Column(name="email", length = 50, nullable = false, unique = true)
