@@ -29,4 +29,11 @@ public class AdminServiceImpl implements AdminService{
         return null;
 
     }
+
+    @Override
+    public Vehicle changeAvailability(int vehicleId, int availabilityStatus) {
+        Vehicle vehicle = vehicleDAO.findById(vehicleId).get();
+        vehicle.setAvailability_status(availabilityStatus);
+        return vehicleDAO.save(vehicle);
+    }
 }

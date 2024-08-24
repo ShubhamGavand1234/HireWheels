@@ -3,6 +3,7 @@ package com.example.hirewheels.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity(name="booking")
 public class Booking {
@@ -12,13 +13,13 @@ public class Booking {
     private int booking_id;
 
     @Column(nullable = false)
-    private LocalDateTime pickup_date;
+    private Date pickup_date;
 
     @Column(nullable = false)
-    private LocalDateTime dropoff_date;
+    private Date dropoff_date;
 
     @Column(nullable = false)
-    private LocalDateTime booking_date;
+    private Date booking_date;
 
     @Column(nullable = false)
     private double amount;
@@ -43,27 +44,27 @@ public class Booking {
         this.booking_id = booking_id;
     }
 
-    public LocalDateTime getPickup_date() {
+    public Date getPickup_date() {
         return pickup_date;
     }
 
-    public void setPickup_date(LocalDateTime pickup_date) {
+    public void setPickup_date(Date pickup_date) {
         this.pickup_date = pickup_date;
     }
 
-    public LocalDateTime getDropoff_date() {
+    public Date getDropoff_date() {
         return dropoff_date;
     }
 
-    public void setDropoff_date(LocalDateTime dropoff_date) {
+    public void setDropoff_date(Date dropoff_date) {
         this.dropoff_date = dropoff_date;
     }
 
-    public LocalDateTime getBooking_date() {
+    public Date getBooking_date() {
         return booking_date;
     }
 
-    public void setBooking_date(LocalDateTime booking_date) {
+    public void setBooking_date(Date booking_date) {
         this.booking_date = booking_date;
     }
 
